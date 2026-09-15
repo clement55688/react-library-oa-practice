@@ -1,0 +1,121 @@
+[
+  {
+    "id": "b1",
+    "title": "Fahrenheit 451",
+    "authorId": "bradbury",
+    "year": 1953,
+    "author": {
+      "id": "bradbury",
+      "firstName": "Ray",
+      "lastName": "Bradbury"
+    }
+  },
+  {
+    "id": "b2",
+    "title": "The Hunt for Red October",
+    "authorId": "clancy",
+    "year": 1984,
+    "author": {
+      "id": "clancy",
+      "firstName": "Tom",
+      "lastName": "Clancy"
+    }
+  },
+  {
+    "id": "b3",
+    "title": "Algorithms Unlocked",
+    "authorId": "cormen",
+    "year": 2013,
+    "author": {
+      "id": "cormen",
+      "firstName": "Thomas H.",
+      "lastName": "Cormen"
+    }
+  },
+  {
+    "id": "b4",
+    "title": "Where the Wild Things Are",
+    "authorId": "sendak",
+    "year": 1963,
+    "author": {
+      "id": "sendak",
+      "firstName": "Maurice",
+      "lastName": "Sendak"
+    }
+  },
+  {
+    "id": "b5",
+    "title": "The TeXbook",
+    "authorId": "knuth",
+    "year": 1984,
+    "author": {
+      "id": "knuth",
+      "firstName": "Donald E.",
+      "lastName": "Knuth"
+    }
+  },
+  {
+    "id": "b6",
+    "title": "Selected Papers on Computer Languages",
+    "authorId": "knuth",
+    "author": {
+      "id": "knuth",
+      "firstName": "Donald E.",
+      "lastName": "Knuth"
+    }
+  },
+  {
+    "id": "b7",
+    "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+    "authorId": "martin",
+    "year": 2008,
+    "author": {
+      "id": "martin",
+      "firstName": "Robert C.",
+      "lastName": "Martin"
+    }
+  },
+  {
+    "id": "b8",
+    "title": "Clean Architecture: A Craftsman's Guide to Software Structure and Design",
+    "authorId": "martin",
+    "year": 2017,
+    "author": {
+      "id": "martin",
+      "firstName": "Robert C.",
+      "lastName": "Martin"
+    }
+  },
+  {
+    "id": "b9",
+    "title": "Clean Agile: Back to Basics",
+    "authorId": "martin",
+    "year": 2019,
+    "author": {
+      "id": "martin",
+      "firstName": "Robert C.",
+      "lastName": "Martin"
+    }
+  },
+  {
+    "id": "b10",
+    "title": "The Adventures of Tom Sawyer",
+    "authorId": "twain",
+    "year": 1876,
+    "author": {
+      "id": "twain",
+      "firstName": "Mark",
+      "lastName": "Twain"
+    }
+  },
+  {
+    "id": "b11",
+    "title": "The Adventures of Huckleberry Finn",
+    "authorId": "twain",
+    "author": {
+      "id": "twain",
+      "firstName": "Mark",
+      "lastName": "Twain"
+    }
+  }
+]
