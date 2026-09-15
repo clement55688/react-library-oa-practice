@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f7f8fa;
+  color: #202934;
+  font:
+    16px/1.5 system-ui,
+    sans-serif;
+}
+main {
+  max-width: 1040px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+header {
+  border-bottom: 1px solid #d8dee7;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+}
+h1 {
+  margin: 0;
+  font-size: 30px;
+}
+h2 {
+  font-size: 22px;
+}
+h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+}
+p {
+  margin: 6px 0;
+}
+small {
+  color: #596575;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  gap: 32px;
+}
+form {
+  background: white;
+  border: 1px solid #d8dee7;
+  border-radius: 6px;
+  padding: 20px;
+  align-self: start;
+}
+form h2 {
+  margin-top: 0;
+}
+label {
+  display: block;
+  margin: 12px 0 4px;
+  font-size: 14px;
+}
+input,
+select,
+button {
+  font: inherit;
+  padding: 9px;
+  border: 1px solid #acb7c5;
+  border-radius: 4px;
+}
+form input {
+  width: 100%;
+}
+input[type="submit"],
+button {
+  cursor: pointer;
+  background: #245a82;
+  color: white;
+  border-color: #245a82;
+  margin-top: 14px;
+}
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 3px solid #8abde5;
+  outline-offset: 2px;
+}
+.group {
+  margin: 20px 0;
+}
+.group > h3 {
+  border-bottom: 1px solid #d8dee7;
+  padding-bottom: 8px;
+}
+.book {
+  background: white;
+  border: 1px solid #d8dee7;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 16px;
+}
+.book h4 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+[role="alert"] {
+  color: #a52626;
+}
+.toolbar {
+  margin: 18px 0;
+}
+.toolbar select {
+  margin-left: 10px;
+}
+@media (max-width: 650px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  main {
+    margin-top: 24px;
+  }
+}
