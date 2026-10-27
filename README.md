@@ -1,77 +1,109 @@
-# Library frontend OA practice
+# Library catalog practice
 
-**[Open this starter in StackBlitz](https://stackblitz.com/github/clement55688/react-library-oa-practice?file=README.md)** to code in the browser. Fork a copy before editing. The [original StackBlitz starter](https://stackblitz.com/edit/tz2afjmf?file=README.md) is also available.
+React + Vite starter for a timed library-catalog exercise: a level selector and page shell, joined records in `src/book.json`, an in-memory mock API, unfinished components, and visible Vitest acceptance tests.
 
-This is an independently reconstructed practice exercise inspired by a frontend coding-assessment format. It is not an official CodeSignal question and does not use CodeSignal's private APIs or hidden tests.
+![Starter screen: practice-level selector on Level 3, add-a-book form, and the catalog placeholder](docs/starter-ui.png)
 
-## Quick start
+The on-page budget is 60–75 minutes. This package is independently reconstructed practice material. It is separate from any official CodeSignal question and includes no private APIs or hidden tests. [Open the starter in StackBlitz](https://stackblitz.com/github/clement55688/react-library-oa-practice?file=README.md) and fork a copy before editing. Layout notes came from the [original StackBlitz starter](https://stackblitz.com/edit/tz2afjmf?file=README.md).
 
-Use Node.js 22.12+ and npm. In this folder run:
+## Features
+
+### Library catalog
+
+`src/App.jsx` renders a “Library Management System” page and a practice-level `<select>` (Level 1, Level 2, Level 3, Practice Level 4). The default level is 3, and tests can pass a numeric `level` prop. Level 1 shows the aside “Start with local data.” Levels 2–4 show the add-book form. The catalog column is a heading, “Catalog”, plus the placeholder “Implement the catalog here.”
+
+`BookCard` is an `<article class="book">` with a placeholder title. `GroupContainer` is a `<section class="group">` whose `aria-label` and `<h3>` are the group label; it does not render books yet. `groupBooks` in `src/catalog.js` returns `[]`.
+
+### book.json
+
+`src/book.json` is the local catalog `App.jsx` imports for the early exercises. It contains 11 books. Each record has `id`, `title`, `authorId`, and an `author` object (`id`, `firstName`, `lastName`). `year` is omitted on “Selected Papers on Computer Languages” and “The Adventures of Huckleberry Finn”.
+
+### Mock APIs
+
+`src/api/libraryApi.js` stands in for a backend. There is no server.
+
+- `getBooks()` waits 25ms, then resolves to a shallow copy of each book in `src/data/mockData.js` (12 books).
+- `getAuthor(id)` waits 25ms, then resolves to a copy of that author, or rejects with `ApiError` and `status` 404.
+- Both functions resolve to plain data (objects and arrays).
+
+`mockData.js` lists 7 authors and those 12 books. “An Unattributed Journey” uses `authorId: "deleted-author"`, which is absent from the author list. `initialBooks` in the same file joins books to authors and leaves that record out. The page does not call the API yet. Levels 3 and 4 in the tests are the spec for that work.
+
+### Starter code
+
+The interactive pieces are unfinished on purpose. TODO comments in `App.jsx`, `AddBookForm.jsx`, `BookCard.jsx`, `GroupContainer.jsx`, and `catalog.js` mark grouping and sorting, controlled inputs, validation, immutable adds, async loading, author joins, 404 handling, loading and error UI, an unknown-author group, and year sorting.
+
+`AddBookForm` renders labeled inputs named `title`, `authorFirst`, `authorLast`, and `year`, plus `<input type="submit" value="Add new book" />`. Submit runs `preventDefault`. The form does not store input state and does not call `onAdd`.
+
+### Tests
+
+`test/level1.test.jsx` through `test/level4.test.jsx` are the acceptance tests (Vitest, jsdom, React Testing Library). They specify last-name-initial grouping, optional years, the add-book form, loading and joining through the mock API, non-404 errors with retry, a final “Unknown author” group, and year sorting. `test/setup.js` registers jest-dom and unmounts after each test. `PREPARE.md` is the short brief for someone about to attempt the exercise.
+
+## Tech stack
+
+- React 19 and React DOM
+- Vite 7 (`dev`, `build`, `preview`)
+- Vitest 4, jsdom, React Testing Library, `@testing-library/jest-dom`, and `@testing-library/user-event`
+- Plain CSS in `src/index.css`
+- Node.js 22.12+ (`engines` in `package.json`)
+
+The source is JavaScript and JSX. Data comes from `book.json` and the mock modules above.
+
+## Run the app
+
+From this folder, with Node.js 22.12 or newer:
 
 ```sh
 npm install
 npm run dev
-npm test
-npm run build
 ```
 
-Open the local URL printed by Vite. Tests run once; use `npm run test:watch` for watch mode. Run one level with `npm run test:level1` (or level2, level3, level4). All tests are visible acceptance tests, not a secure or hidden grading service. Starter tests intentionally fail until implemented; solution tests should all pass.
+Vite prints a local URL (`http://localhost:5173/` by default). The screen is the one in the screenshot: the level selector, the add-book form at the default level, and the catalog placeholder.
 
-## Format
+Verified with Node.js 22.23.4: `npm run dev` starts Vite 7.3.6 and serves the starter UI.
 
-Budget 60–75 minutes for Levels 1–3. Practice Level 4 is an optional 15–20 minute extension. Complete each level cumulatively. Use React, JavaScript/JSX, Vite, Vitest, React Testing Library and plain CSS. No backend or external API is needed. Run the starter at Level 1 initially using its level selector. App supports an optional numeric `level` prop for tests and defaults to Level 3. Changing levels resets the catalog; persistence is out of scope.
+## Run the tests
 
-## Level 1 — Display the catalog
+```sh
+npm test
+```
 
-Import `books` directly from `src/book.json` for Levels 1–2: `import books from "./book.json";` in `App.jsx`. Every book has its author data in the JSON file, so no API call is needed until Level 3. Render a Catalog heading, sections grouped by the uppercase first letter of each author's trimmed last name, and one BookCard per book. Group labels ascend alphabetically. Within a group sort by last name, then title, then ID for ties; compare English text case-insensitively. Do not mutate input arrays.
+`npm test` is `vitest run`. Related scripts already in `package.json`:
 
-Each card is an article with a level-four heading containing its title, followed by `Author: FirstName LastName`. Render `Year: 1984` when supplied; omit the entire year line for undefined, null or empty-string years. Each GroupContainer is a section with aria-label equal to the group label and a level-three heading. Use stable IDs for React keys.
+| Script | What it runs |
+| --- | --- |
+| `npm run test:watch` | Vitest in watch mode |
+| `npm run test:level1` | `test/level1` only (`test:level2`, `test:level3`, and `test:level4` match) |
+| `npm run build` | production build |
+| `npm run preview` | serve the production build |
 
-## Level 2 — Add a book
+Verified with Node.js 22.23.4: `npm test` runs the full suite and exits non-zero because the starter components are still stubs. The result on this tree is **5 passed, 14 failed** (19 tests). The passing Level 3 case calls `getBooks` and `getAuthor` directly and checks that responses are copies and that an unknown author rejects with status 404. The passing Level 2 cases only check that an empty or whitespace-only submit does not call `onAdd`. The stub form never calls `onAdd`, so those assertions pass before any validation exists. The 14 failures are the catalog, add-book, and loading behavior still marked TODO in `src/`. Application source was left as-is.
 
-Build AddBookForm with controlled inputs using useState. Required text inputs are `name="title" placeholder="Title*"`, `name="authorFirst" placeholder="Author First Name*"`, and `name="authorLast" placeholder="Author Last Name*"`. Optional year uses `name="year" type="number" placeholder="Year"`. Use `<input type="submit" value="Add new book" />` and accessible labels.
-
-Trim required values; empty or whitespace-only values must not add a book. A supplied year must be an integer (no arbitrary historical range). Generate a locally unique ID, call onAdd with `{id,title,author:{id,firstName,lastName},year?}`, append immutably, place the book in its sorted group, and clear all four inputs only on success. Duplicate titles are allowed; distinct submissions need distinct IDs. Omit the year property when blank.
-
-## Level 3 — Retrieve books and authors
-
-Replace local initialization with the provided asynchronous mock functions. `getBooks()` resolves to an array of `{id,title,authorId,year?}`. `getAuthor(authorId)` resolves to `{id,firstName,lastName}` or rejects with an ApiError whose status is 404. These functions return data directly, not fetch Response objects; do not call .json().
-
-Fetch books, retrieve each associated author, and combine records. Sequential requests are sufficient. Omit books whose author lookup returns 404. Preserve optional-year behavior. Show `Loading catalog…` in a status region. For a books failure or a non-404 author failure, show an alert containing `Unable to load catalog` and a Retry button. A successful empty response shows `No books to display.` Do not silently discard server errors. Prevent obsolete requests from updating state after unmount or a level change. The add form becomes available after loading succeeds; locally added books remain in memory until reset or reload.
-
-## Practice Level 4 — Original extension
-
-This level is our own exercise, not a claim about the original assessment's unrecovered Level 4. Preserve books with 404 authors and display them in a final `Unknown author` group with `Author: Unknown author`. Known groups remain alphabetic. Add a select labeled `Sort books`: value `author` uses Level 1 ordering; value `year` sorts within each group by newest year first, missing years last, and Level 1 ordering for ties. Changing sorting must preserve every book and keep Unknown author last. Non-404 errors still fail visibly.
-
-## Files and responsibilities
+## Project structure
 
 ```text
-src/
-  App.jsx                 state, loading, level selection, catalog
-  AddBookForm.jsx          controlled form
-  BookCard.jsx            single book
-  GroupContainer.jsx      labeled group
-  catalog.js              optional pure grouping/sorting helper
-  book.json               supplied joined records for Levels 1–2
-  api/libraryApi.js       provided asynchronous mock API
-  data/mockData.js         provided fixture records
-  index.jsx, index.css     entry point and simple styling
-test/
-  setup.js
-  level1.test.jsx
-  level2.test.jsx
-  level3.test.jsx
-  level4.test.jsx
+.
+├── index.html                 # page shell; loads src/index.jsx
+├── package.json               # scripts and dependency ranges
+├── package-lock.json
+├── vite.config.js             # Vite and Vitest (jsdom, test/setup.js)
+├── .stackblitzrc              # StackBlitz start command: npm run dev
+├── PREPARE.md                 # short exercise brief
+├── docs/starter-ui.png        # screenshot of the running starter
+├── src/
+│   ├── index.jsx              # React entry
+│   ├── index.css              # layout, form, and card styles
+│   ├── App.jsx                # level selector and page shell
+│   ├── AddBookForm.jsx        # add-book form stub
+│   ├── BookCard.jsx           # single-book stub
+│   ├── GroupContainer.jsx     # group section stub
+│   ├── catalog.js             # groupBooks stub
+│   ├── book.json              # 11 joined book records
+│   ├── api/libraryApi.js      # getBooks, getAuthor, ApiError
+│   └── data/mockData.js       # authors, books, initialBooks
+└── test/
+    ├── setup.js
+    ├── level1.test.jsx
+    ├── level2.test.jsx
+    ├── level3.test.jsx
+    └── level4.test.jsx
 ```
-
-## What this assessment tests
-
-React component design; useState; controlled forms; validation; immutable state updates; useEffect; asynchronous JavaScript; API fetching and joining related records; 404 handling; conditional rendering; grouping; deterministic sorting; debugging with unit tests.
-
-## Submission
-
-Return source code, lockfile and a short note listing completed levels, commands run, remaining issues and any assistance used. Exclude node_modules, dist and secrets. Follow the recruiter's stated policy on documentation and AI assistance. The provided tests guide behavior; reviewers should also inspect code and manually exercise the UI.
-
-## Assumptions
-
-The latest written reconstruction is authoritative for this practice package; earlier screenshots were not transcribed as an official question. Grouping is by surname initial. Title and ID tie-breaks, integer-year validation, explicit error/retry behavior and Level 4 are defined here to make the exercise unambiguous. Book metadata is mock fixture data, not bibliographic reference material. No real assessment URLs, copied assets, proctoring or private tests are included.
