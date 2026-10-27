@@ -67,6 +67,8 @@ Verified with Node.js 22.23.4: `npm run dev` starts Vite 7.3.6 and serves the st
 npm test
 ```
 
+`npm test` reports failures by design. The catalog, add-book, and loading exercises are unfinished TODO starters for OA practice, and the suite fully passes only once they are implemented.
+
 `npm test` is `vitest run`. Related scripts already in `package.json`:
 
 | Script | What it runs |
